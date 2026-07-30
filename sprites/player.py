@@ -4,8 +4,8 @@ from utils.animation import Animation
 
 class Player:
     def __init__(self, x, y):
-        self.width = 32
-        self.height = 32
+        self.width = 24
+        self.height = 24
         self.rect = pygame.Rect(x, y, self.width, self.height)
 
         # --- Animation setup ---
@@ -15,9 +15,9 @@ class Player:
         self.fire_anim = Animation(fire_frames, fps=8)
 
         # Fire's offset from Ember's center (slightly right and above)
-        self.fire_offset_x_right = 21
-        self.fire_offset_x_left = -21   # tuned independently, not just -34
-        self.fire_offset_y = -34
+        self.fire_offset_x_right = 22
+        self.fire_offset_x_left = -19   # tuned independently, not just -34
+        self.fire_offset_y = -36
         self.facing_right = True
         self.is_moving = False
 
@@ -28,7 +28,7 @@ class Player:
         self.acceleration = 1200
         self.friction = 1000
         self.gravity = 800
-        self.jump_strength = -400
+        self.jump_strength = -300
         self.on_ground = False
 
     def handle_input(self, dt):
@@ -109,6 +109,7 @@ class Player:
         # Anchor Ember's sprite by bottom-center, not top-left,
         # so feet line up with the collision rect regardless of art size
         ember_draw_rect = ember_frame.get_rect(midbottom=screen_rect.midbottom)
+        ember_draw_rect = ember_draw_rect.inflate(-8, -8)
         screen.blit(ember_frame, ember_draw_rect.topleft)
 
         # Fire position: Ember's center + offset, separate offsets per facing direction
@@ -116,4 +117,6 @@ class Player:
         fire_x = self.rect.centerx + offset_x - fire_frame.get_width() // 2
         fire_y = self.rect.centery + self.fire_offset_y - fire_frame.get_height() // 2
         fire_screen_pos = camera.apply(pygame.Rect(fire_x, fire_y, 0, 0)).topleft
-        screen.blit(fire_frame, fire_screen_pos)
+        fire_draw_rect = fire_frame.get_rect(topleft=fire_screen_pos)
+        fire_draw_rect = fire_draw_rect.inflate(-4, -4)
+        screen.blit(fire_frame, fire_draw_rect.topleft)

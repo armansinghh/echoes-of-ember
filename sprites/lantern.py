@@ -3,6 +3,7 @@ import pygame
 class Lantern:
     def __init__(self, x, y):
         self.image = pygame.image.load("assets/images/lantern.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, (48, 80))
         self.width, self.height = self.image.get_size()
 
         # collision rect - kept smaller/centered than the full sprite so
