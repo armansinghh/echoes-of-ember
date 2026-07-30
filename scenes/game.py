@@ -4,6 +4,7 @@ from sprites.player import Player
 from sprites.camera import Camera
 from sprites.lantern import Lantern
 from sprites.hazard import Hazard
+from sprites.background import Background, ParallaxLayer
 import config as cfg
 
 class GameScene(Scene):
@@ -13,22 +14,27 @@ class GameScene(Scene):
         self.player = Player(*self.start_pos)
 
         self.world_width = 2000
-        self.world_height = cfg.SCREEN_HEIGHT
+        self.world_height = cfg.VIRTUAL_HEIGHT
 
         self.platforms = [
-            pygame.Rect(0, cfg.SCREEN_HEIGHT - 40, self.world_width, 40),
-            pygame.Rect(200, 480, 150, 20),
-            pygame.Rect(450, 420, 150, 20),
-            pygame.Rect(900, 450, 150, 20),
-            pygame.Rect(1300, 400, 150, 20),
+            pygame.Rect(0, cfg.VIRTUAL_HEIGHT - 24, self.world_width, 24),
+            pygame.Rect(200, 140, 96, 12),
+            pygame.Rect(450, 112, 96, 12),
+            pygame.Rect(900, 128, 96, 12),
+            pygame.Rect(1300, 96, 96, 12),
         ]
 
         self.hazards = [
-            Hazard(650, cfg.SCREEN_HEIGHT - 40 - 20, 100, 20),
+            Hazard(650, cfg.VIRTUAL_HEIGHT - 40 - 20, 100, 20),
         ]
 
-        self.lantern = Lantern(1850, cfg.SCREEN_HEIGHT - 35 - 160) 
-        self.camera = Camera(cfg.SCREEN_WIDTH, cfg.SCREEN_HEIGHT, self.world_width, self.world_height)
+        self.lantern = Lantern(1850, cfg.VIRTUAL_HEIGHT - 35 - 160)
+        self.camera = Camera(cfg.VIRTUAL_WIDTH, cfg.VIRTUAL_HEIGHT, self.world_width, self.world_height)
+        self.background = Background([
+            ParallaxLayer("assets/images/sky.png", scroll_factor=0.0),
+            ParallaxLayer("assets/images/distant-ruins.png", scroll_factor=0.3),
+            ParallaxLayer("assets/images/mid-ruins.png", scroll_factor=0.6),
+        ])
 
         self.won = False
 
@@ -62,7 +68,7 @@ class GameScene(Scene):
             print("Level complete!")
 
     def draw(self, screen):
-        screen.fill((0, 0, 51))
+        self.background.draw(screen, self.camera)
         for platform in self.platforms:
             pygame.draw.rect(screen, (153, 153, 0), self.camera.apply(platform))
         for hazard in self.hazards:
