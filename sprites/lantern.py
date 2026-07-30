@@ -2,10 +2,13 @@ import pygame
 
 class Lantern:
     def __init__(self, x, y):
-        self.width = 24
-        self.height = 32
+        self.image = pygame.image.load("assets/images/lantern.png").convert_alpha()
+        self.width, self.height = self.image.get_size()
+
+        # collision rect - kept smaller/centered than the full sprite so
+        # touching the lantern feels fair (not the whole tall sprite is "solid")
         self.rect = pygame.Rect(x, y, self.width, self.height)
-        self.color = (255, 230, 140)
 
     def draw(self, screen, camera):
-        pygame.draw.rect(screen, self.color, camera.apply(self.rect))
+        screen_rect = camera.apply(self.rect)
+        screen.blit(self.image, screen_rect.topleft)
