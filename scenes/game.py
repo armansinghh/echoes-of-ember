@@ -27,7 +27,7 @@ class GameScene(Scene):
             Hazard(650, cfg.SCREEN_HEIGHT - 40 - 20, 100, 20),
         ]
 
-        self.lantern = Lantern(1850, cfg.SCREEN_HEIGHT - 40 - 32)
+        self.lantern = Lantern(1850, cfg.SCREEN_HEIGHT - 35 - 160) 
         self.camera = Camera(cfg.SCREEN_WIDTH, cfg.SCREEN_HEIGHT, self.world_width, self.world_height)
 
         self.won = False
@@ -62,14 +62,14 @@ class GameScene(Scene):
             print("Level complete!")
 
     def draw(self, screen):
-        screen.fill((10, 30, 20))
+        screen.fill((0, 0, 51))
         for platform in self.platforms:
-            pygame.draw.rect(screen, (80, 60, 50), self.camera.apply(platform))
+            pygame.draw.rect(screen, (153, 153, 0), self.camera.apply(platform))
         for hazard in self.hazards:
             hazard.draw(screen, self.camera)
         self.lantern.draw(screen, self.camera)
-        pygame.draw.rect(screen, self.player.color, self.camera.apply(self.player.rect))
-
+        self.player.draw(screen, self.camera)
+        
         if self.won:
             font = pygame.font.SysFont(None, 48)
             text = font.render("Ember Reached the Lantern!", True, (255, 230, 140))

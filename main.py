@@ -8,7 +8,14 @@ from scenes.pause import PauseScene
 def main():
     pygame.init()
 
-    screen = pygame.display.set_mode((cfg.SCREEN_WIDTH, cfg.SCREEN_HEIGHT))
+    # Ask the OS what the actual monitor resolution is
+    display_info = pygame.display.Info()
+    cfg.SCREEN_WIDTH = display_info.current_w
+    cfg.SCREEN_HEIGHT = display_info.current_h
+
+    screen = pygame.display.set_mode(
+        (cfg.SCREEN_WIDTH, cfg.SCREEN_HEIGHT), pygame.FULLSCREEN
+    )
     pygame.display.set_caption("Echoes of Ember")
     clock = pygame.time.Clock()
 
@@ -25,10 +32,11 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                running = False  # fullscreen games need a reliable quit key
             manager.handle_event(event)
 
         manager.update(dt)
-
         manager.draw(screen)
         pygame.display.flip()
 
