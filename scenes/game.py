@@ -1,15 +1,21 @@
 import pygame
-from scenes.scene import Scene
-from sprites.player import Player
-from sprites.camera import Camera
-from sprites.lantern import Lantern
-from sprites.hazard import Hazard
-from sprites.platform import Platform
-from sprites.background import Background, ParallaxLayer
-from utils.spritesheet import load_frames
+
 import config as cfg
+from scenes.scene import Scene
+from sprites.background import Background, ParallaxLayer
+from sprites.camera import Camera
+from sprites.hazard import Hazard
+from sprites.lantern import Lantern
+from sprites.platform import Platform
+from sprites.player import Player
+from utils.spritesheet import load_frames
+
 
 class GameScene(Scene):
+    """
+    this is da main gameplay state, handles level loading, player updates,
+    collision detection, and rendering the game world
+    """
     def __init__(self, manager):
         super().__init__(manager)
         self.start_pos = (100, 100)
@@ -18,7 +24,8 @@ class GameScene(Scene):
         self.world_width = 2000
         self.world_height = cfg.VIRTUAL_HEIGHT
 
-        # Collision rects - UNCHANGED, Player still collides against these directly
+        # these are collision rects; physics engine only cares about these invisible rectangles
+        # this separation allows us to use simple math for collisions while drawing complex art
         self.platforms = [
             pygame.Rect(0, cfg.VIRTUAL_HEIGHT - 32, self.world_width, 24),
             # pygame.Rect(200, 140, 96, 12),
@@ -27,7 +34,7 @@ class GameScene(Scene):
             # pygame.Rect(1300, 96, 96, 12),
         ]
 
-        # Visual layer only - tiled art built on top of the same rects above
+        # tile art built directly on top of the collision rects
         tile_variants = load_frames("assets/images/tiles.png", 4)
         self.platform_visuals = [
             Platform(rect.x, rect.y, rect.width, rect.height, tile_variants)
@@ -40,6 +47,7 @@ class GameScene(Scene):
 
         self.lantern = Lantern(1850, cfg.VIRTUAL_HEIGHT - 35 - 160)
         self.camera = Camera(cfg.VIRTUAL_WIDTH, cfg.VIRTUAL_HEIGHT, self.world_width, self.world_height)
+        
         self.background = Background([
             ParallaxLayer("assets/images/sky.png", scroll_factor=0.0),
             ParallaxLayer("assets/images/distant-ruins.png", scroll_factor=0.3),
@@ -47,12 +55,16 @@ class GameScene(Scene):
         ])
 
         self.won = False
+        
+        # cache the font here so we don't instantiate it FPS times a second during the draw loop
+        self.win_font = pygame.font.SysFont(None, 48)
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             self.manager.set_scene("pause")
 
     def respawn(self):
+        # resets the player to the starting position and kills its momentum
         self.player.rect.topleft = self.start_pos
         self.player.vel_x = 0
         self.player.vel_y = 0
@@ -64,6 +76,7 @@ class GameScene(Scene):
         self.player.update(dt, self.platforms)
         self.camera.update(self.player.rect)
 
+        # bottom less pit death check; if it falls off screen, respawn
         if self.player.rect.top > self.world_height + 200:
             self.respawn()
             return
@@ -73,20 +86,24 @@ class GameScene(Scene):
         #         self.respawn()
         #         return
 
+        # goal check
         if self.player.rect.colliderect(self.lantern.rect):
             self.won = True
-            print("Level complete!")
+            print("Level complete!") # temp
 
     def draw(self, screen):
         self.background.draw(screen, self.camera)
+        
         for platform_visual in self.platform_visuals:
             platform_visual.draw(screen, self.camera)
+            
         # for hazard in self.hazards:
         #     hazard.draw(screen, self.camera)
+            
         self.lantern.draw(screen, self.camera)
         self.player.draw(screen, self.camera)
 
         if self.won:
-            font = pygame.font.SysFont(None, 48)
-            text = font.render("Ember Reached the Lantern!", True, (255, 230, 140))
-            screen.blit(text, (cfg.SCREEN_WIDTH // 2 - 220, cfg.SCREEN_HEIGHT // 2))
+            text = self.win_font.render("Ember Reached the Lantern!", True, (255, 230, 140))
+            text_rect = text.get_rect(center=(cfg.VIRTUAL_WIDTH // 2, cfg.VIRTUAL_HEIGHT // 2))
+            screen.blit(text, text_rect)
