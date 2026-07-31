@@ -45,7 +45,7 @@ class GameScene(Scene):
         #     Hazard(650, cfg.VIRTUAL_HEIGHT - 40 - 20, 100, 20),
         # ]
 
-        self.lantern = Lantern(1850, cfg.VIRTUAL_HEIGHT - 35 - 160)
+        self.lantern = Lantern(1850, cfg.VIRTUAL_HEIGHT - 23 - 160)
         self.camera = Camera(cfg.VIRTUAL_WIDTH, cfg.VIRTUAL_HEIGHT, self.world_width, self.world_height)
         
         self.background = Background([
