@@ -10,10 +10,12 @@ class ParallaxLayer:
         self.cached_size = None
 
     def _get_surface(self, screen):
-        size = screen.get_size()
-        if self.cached_surface is None or self.cached_size != size:
-            self.cached_surface = pygame.transform.scale(self.image, size)
-            self.cached_size = size
+        target_height = screen.get_height()
+        if self.cached_surface is None or self.cached_height != target_height:
+            scale_factor = target_height / self.height
+            new_width = int(self.width * scale_factor)
+            self.cached_surface = pygame.transform.scale(self.image, (new_width, target_height))
+            self.cached_height = target_height
         return self.cached_surface
 
     def draw(self, screen, camera):

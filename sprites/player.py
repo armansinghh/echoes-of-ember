@@ -4,24 +4,30 @@ from utils.animation import Animation
 
 class Player:
     def __init__(self, x, y):
-        self.width = 24
-        self.height = 24
+        # Collision box - separate from visual size, tune independently
+        self.width = 32
+        self.height = 72
         self.rect = pygame.Rect(x, y, self.width, self.height)
 
-        # --- Animation setup ---
+        # Visual sprite size - clean 0.5x of native 64x64 source art, stays crisp
+        sprite_size = (64, 64)
+
         ember_frames = load_frames("assets/images/ember.png", 4)
         fire_frames = load_frames("assets/images/fire.png", 4)
-        self.ember_anim = Animation(ember_frames, fps=8)
-        self.fire_anim = Animation(fire_frames, fps=8)
 
-        # Fire's offset from Ember's center (slightly right and above)
-        self.fire_offset_x_right = 22
-        self.fire_offset_x_left = -19   # tuned independently, not just -34
-        self.fire_offset_y = -36
+        ember_frames = [pygame.transform.scale(frame, sprite_size) for frame in ember_frames]
+        fire_frames = [pygame.transform.scale(frame, (32, 32)) for frame in fire_frames]
+
+        self.ember_anim = Animation(ember_frames, fps=8)
+        self.fire_anim = Animation(fire_frames, fps=6)
+
+        self.fire_offset_x_right = 20
+        self.fire_offset_x_left = -19
+        self.fire_offset_y = -12
         self.facing_right = True
         self.is_moving = False
 
-        # --- Movement ---
+        # --- Movement (unchanged) ---
         self.vel_x = 0
         self.vel_y = 0
         self.max_speed = 200
@@ -109,7 +115,7 @@ class Player:
         # Anchor Ember's sprite by bottom-center, not top-left,
         # so feet line up with the collision rect regardless of art size
         ember_draw_rect = ember_frame.get_rect(midbottom=screen_rect.midbottom)
-        ember_draw_rect = ember_draw_rect.inflate(-8, -8)
+        ember_draw_rect = ember_draw_rect.inflate(-6, -6)
         screen.blit(ember_frame, ember_draw_rect.topleft)
 
         # Fire position: Ember's center + offset, separate offsets per facing direction
