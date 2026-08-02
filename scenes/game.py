@@ -64,10 +64,8 @@ class GameScene(Scene):
             self.manager.set_scene("pause")
 
     def respawn(self):
-        # resets the player to the starting position and kills its momentum
-        self.player.rect.topleft = self.start_pos
-        self.player.vel_x = 0
-        self.player.vel_y = 0
+        # resets the player to the starting position and clears its physics state
+        self.player.reset(*self.start_pos)
 
     def update(self, dt):
         if self.won:

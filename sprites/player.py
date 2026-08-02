@@ -49,6 +49,19 @@ class Player:
         self.jump_strength = -300
         self.on_ground = False
 
+    def reset(self, x, y):
+        self.rect.topleft = (x, y)
+        self.pos_x = float(x)
+        self.pos_y = float(y)
+        self.vel_x = 0
+        self.vel_y = 0
+        self.on_ground = False
+        self.is_moving = False
+        self.ember_anim.current_frame = 0
+        self.ember_anim.timer = 0
+        self.fire_anim.current_frame = 0
+        self.fire_anim.timer = 0
+
     def handle_input(self, dt):
         keys = pygame.key.get_pressed()
         moving = False
