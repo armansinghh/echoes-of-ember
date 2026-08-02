@@ -51,24 +51,21 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-                
+
             manager.handle_event(event)
 
         manager.update(dt)
 
-        # scenes flagged uses_virtual_canvas=False (menu/pause) skip the pixel-art
-        # canvas entirely and draw straight onto the real fullscreen display,
-        # so their text renders crisp at native resolution instead of blocky/scaled
-        if manager.current.uses_virtual_canvas:
+        if manager.current is not None and not manager.current.uses_virtual_canvas:
+            screen.fill((0, 0, 0))
+            manager.draw(screen)
+        else:
             manager.draw(game_surface)
 
             # scale up with no smoothing
             scaled = pygame.transform.scale(game_surface, scaled_size)
             screen.blit(scaled, (offset_x, offset_y))
-        else:
-            screen.fill((0, 0, 0))
-            manager.draw(screen)
-        
+
         pygame.display.flip()
 
     pygame.quit()
