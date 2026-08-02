@@ -14,6 +14,7 @@ class SceneManager:
         # we let this raise a KeyError if the name doesn't exist
         # so we catch typos in scene names immediately during development
         self.current = self.scenes[name]
+        self.current.on_enter()
 
     def handle_event(self, event):
         if self.current:
