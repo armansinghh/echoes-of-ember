@@ -2,6 +2,7 @@ import pygame
 
 import config as cfg
 from scenes.manager import SceneManager
+from scenes.fade import FadeScene
 from scenes.menu import MenuScene
 from scenes.game import GameScene
 from scenes.pause import PauseScene
@@ -36,6 +37,7 @@ def main():
 
     # set up scene state
     manager = SceneManager()
+    manager.add_scene("fade", FadeScene(manager))
     manager.add_scene("menu", MenuScene(manager))
     manager.add_scene("game", GameScene(manager))
     manager.add_scene("pause", PauseScene(manager))
