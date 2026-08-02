@@ -5,6 +5,8 @@ from scenes.manager import SceneManager
 from scenes.menu import MenuScene
 from scenes.game import GameScene
 from scenes.pause import PauseScene
+from scenes.options import OptionsScene
+from scenes.credits import CreditsScene
 
 
 def main():
@@ -37,6 +39,8 @@ def main():
     manager.add_scene("menu", MenuScene(manager))
     manager.add_scene("game", GameScene(manager))
     manager.add_scene("pause", PauseScene(manager))
+    manager.add_scene("options", OptionsScene(manager))
+    manager.add_scene("credits", CreditsScene(manager))
     
     manager.set_scene("menu")
 
