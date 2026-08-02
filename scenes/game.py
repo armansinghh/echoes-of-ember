@@ -27,7 +27,7 @@ class GameScene(Scene):
         # these are collision rects; physics engine only cares about these invisible rectangles
         # this separation allows us to use simple math for collisions while drawing complex art
         self.platforms = [
-            pygame.Rect(0, cfg.VIRTUAL_HEIGHT - 32, self.world_width, 24),
+            pygame.Rect(0, cfg.VIRTUAL_HEIGHT - 48, self.world_width, 24),
             # pygame.Rect(200, 140, 96, 12),
             # pygame.Rect(450, 112, 96, 12),
             # pygame.Rect(900, 128, 96, 12),
@@ -45,7 +45,7 @@ class GameScene(Scene):
         #     Hazard(650, cfg.VIRTUAL_HEIGHT - 40 - 20, 100, 20),
         # ]
 
-        self.lantern = Lantern(1850, cfg.VIRTUAL_HEIGHT - 23 - 160)
+        self.lantern = Lantern(1850, cfg.VIRTUAL_HEIGHT - 38 - 160)
         self.camera = Camera(cfg.VIRTUAL_WIDTH, cfg.VIRTUAL_HEIGHT, self.world_width, self.world_height)
         
         self.background = Background([
