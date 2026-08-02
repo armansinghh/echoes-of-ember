@@ -49,9 +49,9 @@ class GameScene(Scene):
         self.camera = Camera(cfg.VIRTUAL_WIDTH, cfg.VIRTUAL_HEIGHT, self.world_width, self.world_height)
         
         self.background = Background([
-            ParallaxLayer("assets/images/sky.png", scroll_factor=0.0),
-            ParallaxLayer("assets/images/distant-ruins.png", scroll_factor=0.3),
-            ParallaxLayer("assets/images/mid-ruins.png", scroll_factor=0.6),
+            ParallaxLayer("assets/images/sky.png", scroll_factor=0.0, repeats=0, world_width=self.world_width),
+            ParallaxLayer("assets/images/distant-ruins.png", scroll_factor=0.3, repeats=2, world_width=self.world_width),
+            ParallaxLayer("assets/images/mid-ruins.png", scroll_factor=0.6, repeats=2, world_width=self.world_width),
         ])
 
         self.won = False
