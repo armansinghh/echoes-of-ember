@@ -13,7 +13,7 @@ class CreditsScene(Scene):
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            self.manager.set_scene("pause")
+            self.manager.set_scene(self.manager.previous_name or "menu")
 
     def update(self, dt):
         pass

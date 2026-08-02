@@ -13,7 +13,8 @@ class OptionsScene(Scene):
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            self.manager.set_scene("pause")  # back to wherever we came from
+            # go back to whichever scene actually opened this one
+            self.manager.set_scene(self.manager.previous_name or "menu")
 
     def update(self, dt):
         pass

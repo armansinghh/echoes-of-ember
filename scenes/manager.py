@@ -6,14 +6,20 @@ class SceneManager:
     def __init__(self):
         self.scenes = {}
         self.current = None
+        self.current_name = None
+        self.previous_name = None
 
     def add_scene(self, name, scene):
         self.scenes[name] = scene
 
     def set_scene(self, name):
-        # we let this raise a KeyError if the name doesn't exist
-        # so we catch typos in scene names immediately during development
-        self.current = self.scenes[name]
+        # remember where we're coming FROM, before switching, so scenes like
+        # Options/Credits can send the player back to whichever screen opened them
+        if self.current_name is not None:
+            self.previous_name = self.current_name
+
+        self.current_name = name
+        self.current = self.scenes[name]  # raise KeyError on typos, same as before
         self.current.on_enter()
 
     def handle_event(self, event):
