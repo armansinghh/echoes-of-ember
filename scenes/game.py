@@ -9,6 +9,7 @@ from sprites.lantern import Lantern
 from sprites.platform import Platform
 from sprites.player import Player
 from utils.spritesheet import load_frames
+from utils.level_loader import load_level
 
 
 class GameScene(Scene):
@@ -18,21 +19,18 @@ class GameScene(Scene):
     """
     def __init__(self, manager):
         super().__init__(manager)
-        self.start_pos = (100, 100)
+
+        level = load_level("level_00")
+
+        self.start_pos = level["start_pos"]
         self.player = Player(*self.start_pos)
 
-        self.world_width = 2000
+        self.world_width = level["world_width"]
         self.world_height = cfg.VIRTUAL_HEIGHT
 
         # these are collision rects; physics engine only cares about these invisible rectangles
         # this separation allows us to use simple math for collisions while drawing complex art
-        self.platforms = [
-            pygame.Rect(0, cfg.VIRTUAL_HEIGHT - 48, self.world_width, 24),
-            # pygame.Rect(200, 140, 96, 12),
-            # pygame.Rect(450, 112, 96, 12),
-            # pygame.Rect(900, 128, 96, 12),
-            # pygame.Rect(1300, 96, 96, 12),
-        ]
+        self.platforms = level["platforms"]
 
         # tile art built directly on top of the collision rects
         tile_variants = load_frames("assets/images/tiles.png", 4)
@@ -40,12 +38,14 @@ class GameScene(Scene):
             Platform(rect.x, rect.y, rect.width, rect.height, tile_variants)
             for rect in self.platforms
         ]
+        self.voids = level["voids"]
 
-        # self.hazards = [
-        #     Hazard(650, cfg.VIRTUAL_HEIGHT - 40 - 20, 100, 20),
-        # ]
+        self.hazards = [
+            Hazard(rect.x, rect.y, rect.width, rect.height)
+            for rect in level["hazards"]
+        ]
 
-        self.lantern = Lantern(1850, cfg.VIRTUAL_HEIGHT - 38 - 160)
+        self.lantern = Lantern(*level["lantern"])
         self.camera = Camera(cfg.VIRTUAL_WIDTH, cfg.VIRTUAL_HEIGHT, self.world_width, self.world_height)
         
         self.background = Background([
@@ -79,10 +79,11 @@ class GameScene(Scene):
             self.respawn()
             return
 
-        # for hazard in self.hazards:
-        #     if self.player.rect.colliderect(hazard.rect):
-        #         self.respawn()
-        #         return
+        for hazard in self.hazards:
+            hazard.update(dt)
+            if self.player.rect.colliderect(hazard.rect):
+               self.respawn()
+            return
 
         # goal check
         if self.player.rect.colliderect(self.lantern.rect):
@@ -94,9 +95,12 @@ class GameScene(Scene):
         
         for platform_visual in self.platform_visuals:
             platform_visual.draw(screen, self.camera)
+
+        for rect, color in self.voids:
+            pygame.draw.rect(screen, color, self.camera.apply(rect))
             
-        # for hazard in self.hazards:
-        #     hazard.draw(screen, self.camera)
+        for hazard in self.hazards:
+            hazard.draw(screen, self.camera)
             
         self.lantern.draw(screen, self.camera)
         self.player.draw(screen, self.camera)
