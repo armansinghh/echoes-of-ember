@@ -81,7 +81,7 @@ class MenuScene(Scene):
             overlay.fill((0, 0, 0, 160))
             screen.blit(overlay, (0, 0))
 
-            title_surf = self.title_font.render("Echoes of the Ember", True, (255, 200, 100))
+            title_surf = self.title_font.render("Echoes of Ember", True, (255, 200, 100))
 
             option_surfs = []
             for i, option in enumerate(self.options):
