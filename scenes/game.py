@@ -20,7 +20,8 @@ class GameScene(Scene):
     def __init__(self, manager):
         super().__init__(manager)
 
-        level = load_level("level_00")
+        level_name = getattr(manager, "selected_level", "level_00")
+        level = load_level(level_name)
 
         self.start_pos = level["start_pos"]
         self.player = Player(*self.start_pos)
