@@ -50,7 +50,7 @@ class MenuScene(Scene):
     def _activate_selected(self):
         choice = self.options[self.selected_index]
         if choice == "Start":
-            self.manager.transition_to("game")
+            self.manager.transition_to("level_select")
         elif choice == "Options":
             self.manager.set_scene("options")
         elif choice == "Credits":
