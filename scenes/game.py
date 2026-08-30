@@ -31,14 +31,22 @@ class GameScene(Scene):
 
         # these are collision rects; physics engine only cares about these invisible rectangles
         # this separation allows us to use simple math for collisions while drawing complex art
-        self.platforms = level["platforms"]
+        self.ceilings = level["ceilings"]
+        self.platforms = level["platforms"] + self.ceilings  # physics treats both the same
 
         # tile art built directly on top of the collision rects
         tile_variants = load_frames("assets/images/environment/tiles.png", 4)
         self.platform_visuals = [
             Platform(rect.x, rect.y, rect.width, rect.height, tile_variants)
-            for rect in self.platforms
+            for rect in level["platforms"]
         ]
+
+        roof_tile_variants = load_frames("assets/images/environment/roof-tiles.png", 4)
+        self.ceiling_visuals = [
+            Platform(rect.x, rect.y, rect.width, rect.height, roof_tile_variants)
+            for rect in self.ceilings
+        ]
+
         self.voids = level["voids"]
 
         self.hazards = [
@@ -83,8 +91,8 @@ class GameScene(Scene):
         for hazard in self.hazards:
             hazard.update(dt)
             if self.player.rect.colliderect(hazard.rect):
-               self.respawn()
-            return
+                self.respawn()
+                return
 
         # goal check
         if self.player.rect.colliderect(self.lantern.rect):
@@ -96,6 +104,9 @@ class GameScene(Scene):
         
         for platform_visual in self.platform_visuals:
             platform_visual.draw(screen, self.camera)
+
+        for ceiling_visual in self.ceiling_visuals:
+            ceiling_visual.draw(screen, self.camera)
 
         for rect, color in self.voids:
             pygame.draw.rect(screen, color, self.camera.apply(rect))
