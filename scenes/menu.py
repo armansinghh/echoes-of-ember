@@ -26,9 +26,9 @@ class MenuScene(Scene):
         self.drift_speed = 35
 
         self.background = Background([
-            ParallaxLayer("assets/images/sky.png", scroll_factor=0.0),
-            ParallaxLayer("assets/images/distant-ruins.png", scroll_factor=0.3),
-            ParallaxLayer("assets/images/mid-ruins.png", scroll_factor=0.6),
+            ParallaxLayer("assets/images/background/sky.png", scroll_factor=0.0),
+            ParallaxLayer("assets/images/background/distant-ruins.png", scroll_factor=0.3),
+            ParallaxLayer("assets/images/background/mid-ruins.png", scroll_factor=0.6),
         ])
 
     def on_enter(self):

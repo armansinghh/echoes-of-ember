@@ -22,10 +22,10 @@ class Player:
         fire_size = (32, 32)
 
         # load and scale animation
-        ember_frames = load_frames("assets/images/ember.png", 4)
+        ember_frames = load_frames("assets/images/player/ember.png", 4)
         ember_frames = [pygame.transform.scale(f, sprite_size) for f in ember_frames]
         
-        fire_frames = load_frames("assets/images/fire.png", 4)
+        fire_frames = load_frames("assets/images/player/fire.png", 4)
         fire_frames = [pygame.transform.scale(f, fire_size) for f in fire_frames]
 
         self.ember_anim = Animation(ember_frames, fps=8)

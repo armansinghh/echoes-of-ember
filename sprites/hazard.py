@@ -8,7 +8,7 @@ class Hazard:
     def __init__(self, x, y, width, height):
         self.rect = pygame.Rect(x, y, width, height)
 
-        frames = load_frames("assets/images/frost.png", 5)
+        frames = load_frames("assets/images/hazards/frost.png", 5)
         self.anim = Animation(frames, fps=4)
 
     def update(self, dt):
