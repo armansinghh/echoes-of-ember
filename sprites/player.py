@@ -11,7 +11,7 @@ class Player:
     """
     def __init__(self, x, y):
         # collision box; separate from visual size
-        self.width = 32
+        self.width = 34
         self.height = 72
         self.rect = pygame.Rect(x, y, self.width, self.height)
         self.pos_x = float(x)
