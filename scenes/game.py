@@ -8,6 +8,8 @@ from sprites.hazard import Hazard
 from sprites.lantern import Lantern
 from sprites.platform import Platform
 from sprites.player import Player
+from sprites.leak import LeakTile
+from sprites.droplet import Droplet
 from utils.spritesheet import load_frames
 from utils.level_loader import load_level
 
@@ -47,6 +49,13 @@ class GameScene(Scene):
             for rect in self.ceilings
         ]
 
+        self.leak_visuals = [LeakTile(leak["x"], leak["y"]) for leak in level["leaks"]]
+
+        self.droplets = [
+            Droplet(leak["x"] + 32, leak["y"] + 76, leak["floor_y"])
+            for leak in level["leaks"]
+        ]
+
         self.voids = level["voids"]
 
         self.hazards = [
@@ -58,9 +67,13 @@ class GameScene(Scene):
         self.camera = Camera(cfg.VIRTUAL_WIDTH, cfg.VIRTUAL_HEIGHT, self.world_width, self.world_height)
         
         self.background = Background([
-            ParallaxLayer("assets/images/background/sky.png", scroll_factor=0.0, repeats=0, world_width=self.world_width),
-            ParallaxLayer("assets/images/background/distant-ruins.png", scroll_factor=0.3, repeats=2, world_width=self.world_width),
-            ParallaxLayer("assets/images/background/mid-ruins.png", scroll_factor=0.6, repeats=2, world_width=self.world_width),
+            ParallaxLayer(
+                layer["image"],
+                scroll_factor=layer["scroll_factor"],
+                repeats=layer["repeats"],
+                world_width=self.world_width,
+            )
+            for layer in level["background"]
         ])
 
         self.won = False
@@ -83,14 +96,29 @@ class GameScene(Scene):
         self.player.update(dt, self.platforms)
         self.camera.update(self.player.rect)
 
-        # bottom less pit death check; if it falls off screen, respawn
         if self.player.rect.top > self.world_height + 200:
             self.respawn()
             return
 
+        for droplet in self.droplets:
+            droplet.update(dt)
+            if droplet.is_hazardous() and self.player.rect.colliderect(droplet.rect):
+                self.respawn()
+                return
+
         for hazard in self.hazards:
             hazard.update(dt)
             if self.player.rect.colliderect(hazard.rect):
+                self.respawn()
+                return
+
+        for leak_visual, droplet in zip(self.leak_visuals, self.droplets):
+            leak_visual.update(dt)
+            if leak_visual.consume_spawn_trigger():
+                droplet.start_new_drop()
+
+            droplet.update(dt)
+            if droplet.is_hazardous() and self.player.rect.colliderect(droplet.rect):
                 self.respawn()
                 return
 
@@ -107,6 +135,12 @@ class GameScene(Scene):
 
         for ceiling_visual in self.ceiling_visuals:
             ceiling_visual.draw(screen, self.camera)
+
+        for leak_visual in self.leak_visuals:
+            leak_visual.draw(screen, self.camera)
+
+        for droplet in self.droplets:
+            droplet.draw(screen, self.camera)
 
         for rect, color in self.voids:
             pygame.draw.rect(screen, color, self.camera.apply(rect))
