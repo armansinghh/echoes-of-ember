@@ -12,5 +12,6 @@ def load_level(name):
     data["platforms"] = [pygame.Rect(*r) for r in data["platforms"]]
     data["leaks"] = data.get("leaks", [])
     data["voids"] = [(pygame.Rect(*v["rect"]), tuple(v["color"])) for v in data.get("voids", [])]
+    data["moths"] = data.get("moths", [])
     data["hazards"] = [pygame.Rect(*r) for r in data.get("hazards",[])]
     return data

@@ -10,6 +10,7 @@ from sprites.platform import Platform
 from sprites.player import Player
 from sprites.leak import LeakTile
 from sprites.droplet import Droplet
+from sprites.moth import Moth
 from utils.spritesheet import load_frames
 from utils.level_loader import load_level
 
@@ -55,6 +56,8 @@ class GameScene(Scene):
             Droplet(leak["x"] + 32, leak["y"] + 76, leak["floor_y"])
             for leak in level["leaks"]
         ]
+
+        self.moths = [Moth(m["x"], m["y"]) for m in level["moths"]]
 
         self.voids = level["voids"]
 
@@ -122,6 +125,12 @@ class GameScene(Scene):
                 self.respawn()
                 return
 
+        for moth in self.moths:
+            moth.update(dt, self.player.rect)
+            if moth.is_active() and self.player.rect.colliderect(moth.rect):
+                self.respawn()
+                return
+
         # goal check
         if self.player.rect.colliderect(self.lantern.rect):
             self.won = True
@@ -141,6 +150,9 @@ class GameScene(Scene):
 
         for droplet in self.droplets:
             droplet.draw(screen, self.camera)
+
+        for moth in self.moths:
+            moth.draw(screen, self.camera)
 
         for rect, color in self.voids:
             pygame.draw.rect(screen, color, self.camera.apply(rect))
