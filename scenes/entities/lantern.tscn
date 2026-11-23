@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dam3hq44d6mby"]
 
-[ext_resource type="Script" uid="uid://cxs81sidv2i7s" path="res://scripts/lantern.gd" id="1_uxgnm"]
+[ext_resource type="Script" uid="uid://cxs81sidv2i7s" path="res://scripts/entities/lantern.gd" id="1_uxgnm"]
 [ext_resource type="Texture2D" uid="uid://4gdxsti8drv5" path="res://assets/images/objects/lantern.png" id="2_jdg25"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jqqsp"]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dnosx54lpov5a"]
 
 [ext_resource type="Texture2D" uid="uid://bb46r0vjol0u3" path="res://assets/images/background/sky.png" id="1_3shnc"]
-[ext_resource type="Script" uid="uid://b47d8jwxjh331" path="res://scripts/level_select.gd" id="1_p0wlc"]
+[ext_resource type="Script" uid="uid://b47d8jwxjh331" path="res://scripts/ui/level_select.gd" id="1_p0wlc"]
 
 [node name="LevelSelect" type="Control" unique_id=632494934]
 layout_mode = 3

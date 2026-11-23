@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d4l6gxy0k1ffl"]
 
-[ext_resource type="Script" uid="uid://bqsqfx8ds43b2" path="res://scripts/hazard.gd" id="1_p8fi0"]
+[ext_resource type="Script" uid="uid://bqsqfx8ds43b2" path="res://scripts/entities/hazard.gd" id="1_p8fi0"]
 [ext_resource type="Texture2D" uid="uid://6mbgcf8crmnx" path="res://assets/images/hazards/frost.png" id="1_t1sf6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t1sf6"]

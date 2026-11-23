@@ -1,12 +1,12 @@
 extends Control
 
 const LEVELS := [
-	"res://scenes/level_00.tscn",
-	"res://scenes/level_01.tscn",
-	"res://scenes/level_02.tscn",
-	"res://scenes/level_03.tscn",
-	"res://scenes/level_04.tscn",
-	"res://scenes/level_05.tscn",
+	"res://scenes/levels/level_00.tscn",
+	"res://scenes/levels/level_01.tscn",
+	"res://scenes/levels/level_02.tscn",
+	"res://scenes/levels/level_03.tscn",
+	"res://scenes/levels/level_04.tscn",
+	"res://scenes/levels/level_05.tscn",
 ]
 
 @onready var grid: GridContainer = $Levels
@@ -36,4 +36,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		_on_back()
 
 func _on_back() -> void:
-	SceneTransition.change_scene("res://scenes/main_menu.tscn")
+	SceneTransition.change_scene("res://scenes/ui/main_menu.tscn")

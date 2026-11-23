@@ -1,17 +1,17 @@
 [gd_scene format=4 uid="uid://fopr5h3kmvcs"]
 
-[ext_resource type="PackedScene" uid="uid://bpew4mxvlcxrq" path="res://scenes/player.tscn" id="1_bvxu8"]
-[ext_resource type="Script" uid="uid://yl6cvq8xjnmj" path="res://scripts/level_00.gd" id="1_gg1uk"]
-[ext_resource type="Texture2D" uid="uid://bb46r0vjol0u3" path="res://assets/images/background/sky.png" id="1_rtran"]
-[ext_resource type="Texture2D" uid="uid://d35mist8036np" path="res://assets/images/environment/tiles.png" id="2_2nwr0"]
-[ext_resource type="Texture2D" uid="uid://cidoqv8o5wjco" path="res://assets/images/background/distant-ruins.png" id="2_sr55n"]
-[ext_resource type="Texture2D" uid="uid://beg1q3kg6c8vp" path="res://assets/images/background/mid-ruins.png" id="3_dxhgd"]
-[ext_resource type="PackedScene" uid="uid://dam3hq44d6mby" path="res://scenes/lantern.tscn" id="6_dxhgd"]
-[ext_resource type="PackedScene" uid="uid://d4l6gxy0k1ffl" path="res://scenes/frost.tscn" id="6_sr55n"]
-[ext_resource type="PackedScene" uid="uid://dwf5bg4jqy7xh" path="res://scenes/pause_menu.tscn" id="9_ra8ls"]
+[ext_resource type="Script" uid="uid://yl6cvq8xjnmj" path="res://scripts/levels/level_00.gd" id="1_76l1x"]
+[ext_resource type="Texture2D" uid="uid://bb46r0vjol0u3" path="res://assets/images/background/sky.png" id="2_cct7i"]
+[ext_resource type="Texture2D" uid="uid://cidoqv8o5wjco" path="res://assets/images/background/distant-ruins.png" id="3_j6jkn"]
+[ext_resource type="Texture2D" uid="uid://beg1q3kg6c8vp" path="res://assets/images/background/mid-ruins.png" id="4_gfjph"]
+[ext_resource type="Texture2D" uid="uid://d35mist8036np" path="res://assets/images/environment/tiles.png" id="5_7smhd"]
+[ext_resource type="PackedScene" uid="uid://d4l6gxy0k1ffl" path="res://scenes/entities/frost.tscn" id="6_fsoq6"]
+[ext_resource type="PackedScene" uid="uid://bpew4mxvlcxrq" path="res://scenes/entities/player.tscn" id="7_lq0d2"]
+[ext_resource type="PackedScene" uid="uid://dam3hq44d6mby" path="res://scenes/entities/lantern.tscn" id="8_7ehfh"]
+[ext_resource type="PackedScene" uid="uid://dwf5bg4jqy7xh" path="res://scenes/ui/pause_menu.tscn" id="9_dumt4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6vcuh"]
-texture = ExtResource("2_2nwr0")
+texture = ExtResource("5_7smhd")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
@@ -28,13 +28,13 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_6vcuh")
 
 [node name="Level00" type="Node2D" unique_id=162729401]
-script = ExtResource("1_gg1uk")
+script = ExtResource("1_76l1x")
 
 [node name="SkyLayer" type="Parallax2D" parent="." unique_id=1341350797]
 scroll_scale = Vector2(0, 0)
 
 [node name="Sky" type="Sprite2D" parent="SkyLayer" unique_id=1471042172]
-texture = ExtResource("1_rtran")
+texture = ExtResource("2_cct7i")
 centered = false
 
 [node name="DistantRuins" type="Parallax2D" parent="." unique_id=1284734381]
@@ -44,7 +44,7 @@ repeat_size = Vector2(880, 0)
 [node name="Distant_Ruins" type="Sprite2D" parent="DistantRuins" unique_id=1217291922]
 position = Vector2(0, 90)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_sr55n")
+texture = ExtResource("3_j6jkn")
 centered = false
 
 [node name="MidRuins" type="Parallax2D" parent="." unique_id=1267876137]
@@ -54,7 +54,7 @@ repeat_size = Vector2(921, 0)
 [node name="Mid_Ruins" type="Sprite2D" parent="MidRuins" unique_id=1917903086]
 position = Vector2(0, 45)
 scale = Vector2(1.5, 1.75)
-texture = ExtResource("3_dxhgd")
+texture = ExtResource("4_gfjph")
 centered = false
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=705666215]
@@ -62,13 +62,13 @@ position = Vector2(128, 232)
 tile_map_data = PackedByteArray("AAD+/wEAAAAAAAAAAAABAAEAAAAAAAAAAAD//wEAAAABAAAAAAAAAAEAAAACAAAAAAACAAEAAAADAAAAAAADAAEAAAAAAAAAAAAEAAEAAAABAAAAAAAFAAEAAAADAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAABAAAAAAAIAAEAAAACAAAAAAALAAEAAAACAAAAAAAJAAEAAAADAAAAAAAKAAEAAAABAAAAABA=")
 tile_set = SubResource("TileSet_v63yy")
 
-[node name="Frost" parent="." unique_id=1540049218 instance=ExtResource("6_sr55n")]
+[node name="Frost" parent="." unique_id=1540049218 instance=ExtResource("6_fsoq6")]
 position = Vector2(545, 252)
 
-[node name="Player" parent="." unique_id=1823695065 instance=ExtResource("1_bvxu8")]
+[node name="Player" parent="." unique_id=1823695065 instance=ExtResource("7_lq0d2")]
 position = Vector2(70, -36)
 
-[node name="Lantern" parent="." unique_id=1254915052 instance=ExtResource("6_dxhgd")]
+[node name="Lantern" parent="." unique_id=1254915052 instance=ExtResource("8_7ehfh")]
 position = Vector2(835, 223)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=904690007]
@@ -88,4 +88,4 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Ember Reached the Lantern!"
 
-[node name="PauseMenu" parent="." unique_id=670762068 instance=ExtResource("9_ra8ls")]
+[node name="PauseMenu" parent="." unique_id=670762068 instance=ExtResource("9_dumt4")]

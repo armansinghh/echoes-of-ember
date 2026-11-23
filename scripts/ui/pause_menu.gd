@@ -27,4 +27,4 @@ func resume() -> void:
 
 func _on_menu() -> void:
 	get_tree().paused = false
-	SceneTransition.change_scene("res://scenes/main_menu.tscn")
+	SceneTransition.change_scene("res://scenes/ui/main_menu.tscn")
