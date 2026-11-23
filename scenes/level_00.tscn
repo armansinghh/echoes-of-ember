@@ -1,7 +1,10 @@
-[gd_scene format=3 uid="uid://fopr5h3kmvcs"]
+[gd_scene format=4 uid="uid://fopr5h3kmvcs"]
 
 [ext_resource type="PackedScene" uid="uid://bpew4mxvlcxrq" path="res://scenes/player.tscn" id="1_bvxu8"]
+[ext_resource type="Texture2D" uid="uid://bb46r0vjol0u3" path="res://assets/images/background/sky.png" id="1_rtran"]
 [ext_resource type="Texture2D" uid="uid://d35mist8036np" path="res://assets/images/environment/tiles.png" id="2_2nwr0"]
+[ext_resource type="Texture2D" uid="uid://cidoqv8o5wjco" path="res://assets/images/background/distant-ruins.png" id="2_sr55n"]
+[ext_resource type="Texture2D" uid="uid://beg1q3kg6c8vp" path="res://assets/images/background/mid-ruins.png" id="3_dxhgd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6vcuh"]
 texture = ExtResource("2_2nwr0")
@@ -22,10 +25,37 @@ sources/0 = SubResource("TileSetAtlasSource_6vcuh")
 
 [node name="Level00" type="Node2D" unique_id=162729401]
 
+[node name="SkyLayer" type="Parallax2D" parent="." unique_id=1341350797]
+scroll_scale = Vector2(0, 0)
+
+[node name="Sky" type="Sprite2D" parent="SkyLayer" unique_id=1471042172]
+texture = ExtResource("1_rtran")
+centered = false
+
+[node name="DistantRuins" type="Parallax2D" parent="." unique_id=1284734381]
+scroll_scale = Vector2(0.2, 0.2)
+repeat_size = Vector2(880, 0)
+
+[node name="Distant_Ruins" type="Sprite2D" parent="DistantRuins" unique_id=1217291922]
+position = Vector2(0, 90)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_sr55n")
+centered = false
+
+[node name="MidRuins" type="Parallax2D" parent="." unique_id=1267876137]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(921, 0)
+
+[node name="Mid_Ruins" type="Sprite2D" parent="MidRuins" unique_id=1917903086]
+position = Vector2(0, 45)
+scale = Vector2(1.5, 1.75)
+texture = ExtResource("3_dxhgd")
+centered = false
+
 [node name="Player" parent="." unique_id=1823695065 instance=ExtResource("1_bvxu8")]
 position = Vector2(70, -36)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=705666215]
-position = Vector2(64, 192)
-tile_map_data = PackedByteArray(0, 0, 254, 255, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 3, 0, 0, 0, 0, 0)
+position = Vector2(128, 232)
+tile_map_data = PackedByteArray("AAD+/wEAAAAAAAAAAAABAAEAAAAAAAAAAAD//wEAAAABAAAAAAAAAAEAAAACAAAAAAACAAEAAAADAAAAAAADAAEAAAAAAAAAAAAEAAEAAAABAAAAAAAFAAEAAAADAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAABAAAAAAAIAAEAAAACAAAAAAALAAEAAAACAAAAAAAJAAEAAAADAAAAAAAKAAEAAAABAAAAABA=")
 tile_set = SubResource("TileSet_v63yy")

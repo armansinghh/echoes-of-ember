@@ -12,7 +12,7 @@ const FALL_LIMIT := 560.0
 
 var spawn_position: Vector2
 
-func _ready() -> void:
+func _ready() -> void:	
 	spawn_position = global_position
 	fire.play("flicker")
 
