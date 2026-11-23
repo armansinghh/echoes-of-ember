@@ -1,10 +1,12 @@
 [gd_scene format=4 uid="uid://fopr5h3kmvcs"]
 
 [ext_resource type="PackedScene" uid="uid://bpew4mxvlcxrq" path="res://scenes/player.tscn" id="1_bvxu8"]
+[ext_resource type="Script" uid="uid://yl6cvq8xjnmj" path="res://scripts/level_00.gd" id="1_gg1uk"]
 [ext_resource type="Texture2D" uid="uid://bb46r0vjol0u3" path="res://assets/images/background/sky.png" id="1_rtran"]
 [ext_resource type="Texture2D" uid="uid://d35mist8036np" path="res://assets/images/environment/tiles.png" id="2_2nwr0"]
 [ext_resource type="Texture2D" uid="uid://cidoqv8o5wjco" path="res://assets/images/background/distant-ruins.png" id="2_sr55n"]
 [ext_resource type="Texture2D" uid="uid://beg1q3kg6c8vp" path="res://assets/images/background/mid-ruins.png" id="3_dxhgd"]
+[ext_resource type="PackedScene" uid="uid://dam3hq44d6mby" path="res://scenes/lantern.tscn" id="6_dxhgd"]
 [ext_resource type="PackedScene" uid="uid://d4l6gxy0k1ffl" path="res://scenes/frost.tscn" id="6_sr55n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6vcuh"]
@@ -25,6 +27,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_6vcuh")
 
 [node name="Level00" type="Node2D" unique_id=162729401]
+script = ExtResource("1_gg1uk")
 
 [node name="SkyLayer" type="Parallax2D" parent="." unique_id=1341350797]
 scroll_scale = Vector2(0, 0)
@@ -63,3 +66,23 @@ position = Vector2(545, 252)
 
 [node name="Player" parent="." unique_id=1823695065 instance=ExtResource("1_bvxu8")]
 position = Vector2(70, -36)
+
+[node name="Lantern" parent="." unique_id=1254915052 instance=ExtResource("6_dxhgd")]
+position = Vector2(829, 220)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=904690007]
+
+[node name="WinLabel" type="Label" parent="UI" unique_id=906643066]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -11.5
+offset_right = 110.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Ember Reached the Lantern!"

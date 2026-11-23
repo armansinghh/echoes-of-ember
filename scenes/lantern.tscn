@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dam3hq44d6mby"]
+
+[ext_resource type="Script" uid="uid://cxs81sidv2i7s" path="res://scripts/lantern.gd" id="1_uxgnm"]
+[ext_resource type="Texture2D" uid="uid://4gdxsti8drv5" path="res://assets/images/objects/lantern.png" id="2_jdg25"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jqqsp"]
+size = Vector2(83, 138)
+
+[node name="Lantern" type="Area2D" unique_id=1254915052]
+script = ExtResource("1_uxgnm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1702202289]
+texture = ExtResource("2_jdg25")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1158628123]
+position = Vector2(-0.5, 9)
+shape = SubResource("RectangleShape2D_jqqsp")
