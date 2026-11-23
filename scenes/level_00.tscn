@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://d35mist8036np" path="res://assets/images/environment/tiles.png" id="2_2nwr0"]
 [ext_resource type="Texture2D" uid="uid://cidoqv8o5wjco" path="res://assets/images/background/distant-ruins.png" id="2_sr55n"]
 [ext_resource type="Texture2D" uid="uid://beg1q3kg6c8vp" path="res://assets/images/background/mid-ruins.png" id="3_dxhgd"]
+[ext_resource type="PackedScene" uid="uid://d4l6gxy0k1ffl" path="res://scenes/frost.tscn" id="6_sr55n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6vcuh"]
 texture = ExtResource("2_2nwr0")
@@ -52,10 +53,13 @@ scale = Vector2(1.5, 1.75)
 texture = ExtResource("3_dxhgd")
 centered = false
 
-[node name="Player" parent="." unique_id=1823695065 instance=ExtResource("1_bvxu8")]
-position = Vector2(70, -36)
-
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=705666215]
 position = Vector2(128, 232)
 tile_map_data = PackedByteArray("AAD+/wEAAAAAAAAAAAABAAEAAAAAAAAAAAD//wEAAAABAAAAAAAAAAEAAAACAAAAAAACAAEAAAADAAAAAAADAAEAAAAAAAAAAAAEAAEAAAABAAAAAAAFAAEAAAADAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAABAAAAAAAIAAEAAAACAAAAAAALAAEAAAACAAAAAAAJAAEAAAADAAAAAAAKAAEAAAABAAAAABA=")
 tile_set = SubResource("TileSet_v63yy")
+
+[node name="Frost" parent="." unique_id=1540049218 instance=ExtResource("6_sr55n")]
+position = Vector2(545, 252)
+
+[node name="Player" parent="." unique_id=1823695065 instance=ExtResource("1_bvxu8")]
+position = Vector2(70, -36)
