@@ -20,7 +20,7 @@ func _ready() -> void:
 		button.text = str(i)
 		button.custom_minimum_size = Vector2(64, 64)
 		if ResourceLoader.exists(path):
-			button.pressed.connect(func(): get_tree().change_scene_to_file(path))
+			button.pressed.connect(func(): SceneTransition.change_scene(path))
 			if first_playable == null:
 				first_playable = button
 		else:
@@ -36,4 +36,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		_on_back()
 
 func _on_back() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	SceneTransition.change_scene("res://scenes/main_menu.tscn")

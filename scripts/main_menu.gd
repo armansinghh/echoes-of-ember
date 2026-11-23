@@ -11,7 +11,7 @@ func _ready() -> void:
 	play_button.grab_focus()
 
 func _on_play() -> void:
-	get_tree().change_scene_to_file("res://scenes/level_select.tscn")
+	SceneTransition.change_scene("res://scenes/level_select.tscn")
 
 func _on_options() -> void:
 	pass # placeholder, like your pygame version

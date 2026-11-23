@@ -14,6 +14,10 @@ config/name="Echoes of Ember"
 run/main_scene="uid://blc58d4sklho"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
+[autoload]
+
+SceneTransition="*uid://1xfc4mkngoge"
+
 [display]
 
 window/size/viewport_width=640
