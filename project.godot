@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Echoes of Ember"
-run/main_scene="uid://fopr5h3kmvcs"
+run/main_scene="uid://blc58d4sklho"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
 [display]
@@ -24,6 +24,10 @@ window/stretch/mode="viewport"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+
+[gui]
+
+theme/custom="uid://d2v4s65ekwgu3"
 
 [input]
 

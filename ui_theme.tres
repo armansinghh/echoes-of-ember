@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://d2v4s65ekwgu3"]
+
+[ext_resource type="FontFile" uid="uid://73je40lls0io" path="res://assets/fonts/MysteryQuest-Regular.ttf" id="1_touxu"]
+
+[resource]
+default_font = ExtResource("1_touxu")
+default_font_size = 16

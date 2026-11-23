@@ -68,7 +68,7 @@ position = Vector2(545, 252)
 position = Vector2(70, -36)
 
 [node name="Lantern" parent="." unique_id=1254915052 instance=ExtResource("6_dxhgd")]
-position = Vector2(829, 220)
+position = Vector2(835, 223)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=904690007]
 
