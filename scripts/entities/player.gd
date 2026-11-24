@@ -11,9 +11,11 @@ const FALL_LIMIT := 560.0
 @onready var fire: AnimatedSprite2D = $Fire
 
 var spawn_position: Vector2
+var fire_base: Vector2
 
-func _ready() -> void:	
+func _ready() -> void:
 	spawn_position = global_position
+	fire_base = fire.position
 	fire.play("flicker")
 
 func _physics_process(delta: float) -> void:
@@ -22,7 +24,7 @@ func _physics_process(delta: float) -> void:
 	if dir != 0.0:
 		velocity.x = move_toward(velocity.x, dir * MAX_SPEED, ACCEL * delta)
 		ember.flip_h = dir < 0.0
-		fire.position = Vector2(-19.0 if dir < 0.0 else 20.0, -12.0)
+		fire.position.x = -fire_base.x if dir < 0.0 else fire_base.x
 		if ember.animation != "walk" or not ember.is_playing():
 			ember.play("walk")
 	else:
@@ -36,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 
 	move_and_slide()
-	
+
 	if global_position.y > FALL_LIMIT:
 		respawn()
 
