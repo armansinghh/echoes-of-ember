@@ -47,9 +47,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xeo28"]
-size = Vector2(50, 30.75)
+size = Vector2(62.333336, 34.416664)
 
 [node name="Frost" type="Area2D" unique_id=1540049218]
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_p8fi0")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1994275902]
@@ -57,5 +58,5 @@ sprite_frames = SubResource("SpriteFrames_t1sf6")
 frame_progress = 0.9370544
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=822091044]
-position = Vector2(-8, 28.375)
+position = Vector2(-1.8333321, 26.541668)
 shape = SubResource("RectangleShape2D_xeo28")

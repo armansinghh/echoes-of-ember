@@ -36,10 +36,12 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 
 	move_and_slide()
-
+	
 	if global_position.y > FALL_LIMIT:
 		respawn()
 
 func respawn() -> void:
 	global_position = spawn_position
 	velocity = Vector2.ZERO
+	reset_physics_interpolation()
+	$Camera2D.snap_to_target()
