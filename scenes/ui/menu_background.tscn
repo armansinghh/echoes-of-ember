@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://bt176k47j3ags"]
+
+[ext_resource type="Texture2D" uid="uid://bb46r0vjol0u3" path="res://assets/images/background/sky.png" id="1_e6o37"]
+[ext_resource type="Texture2D" uid="uid://cidoqv8o5wjco" path="res://assets/images/background/distant-ruins.png" id="2_g47g4"]
+[ext_resource type="Texture2D" uid="uid://beg1q3kg6c8vp" path="res://assets/images/background/mid-ruins.png" id="3_5kbuq"]
+[ext_resource type="Shader" uid="uid://cm8h2xh5trty6" path="res://scenes/ui/menu_background.gdshader" id="4_g47g4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e6o37"]
+shader = ExtResource("4_g47g4")
+shader_parameter/blur = 2.0
+shader_parameter/dim = 0.5
+shader_parameter/vignette = 0.5
+shader_parameter/tint = Color(0.02, 0.04, 0.11, 1)
+
+[node name="MenuBackground" type="Node2D" unique_id=1958702923]
+
+[node name="SkyLayer" type="Parallax2D" parent="." unique_id=1843481771]
+scroll_scale = Vector2(0, 0)
+
+[node name="Sky" type="Sprite2D" parent="SkyLayer" unique_id=1162582927]
+texture = ExtResource("1_e6o37")
+centered = false
+
+[node name="DistantRuins" type="Parallax2D" parent="." unique_id=233706646]
+scroll_scale = Vector2(0.2, 0.2)
+repeat_size = Vector2(880, 0)
+autoscroll = Vector2(-3, 0)
+repeat_times = 3
+
+[node name="Distant_Ruins" type="Sprite2D" parent="DistantRuins" unique_id=956715791]
+position = Vector2(0, 90)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_g47g4")
+centered = false
+
+[node name="MidRuins" type="Parallax2D" parent="." unique_id=691324686]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(921, 0)
+autoscroll = Vector2(-8, 0)
+repeat_times = 3
+
+[node name="Mid_Ruins" type="Sprite2D" parent="MidRuins" unique_id=694710266]
+position = Vector2(0, 45)
+scale = Vector2(1.5, 1.75)
+texture = ExtResource("3_5kbuq")
+centered = false
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=702683596]
+material = SubResource("ShaderMaterial_e6o37")
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.48235294)
